@@ -34,6 +34,8 @@ A subagent runs in its own context. It gets a fresh pair of eyes on the code and
 
 Open `CLAUDE.md` at the project root. This is where the project conventions live, and it is part of what both the reviewer and the main agent read. Notice the rules the review will hold the change to, such as using TLS for every camera and device endpoint, never hardcoding credentials, and keeping to named exports with two space indentation. A good commit is one that respects these conventions.
 
+The reviewer itself is defined in `.claude/agents/code-reviewer.md`. Open it to see that it is restricted to read only tools, which is what lets it review your work without editing it.
+
 ## Learning outcome
 
 You practiced the Commit step. You used an independent read only subagent for a fresh eyes review before committing, then generated a commit message in your own style. Together with the earlier exercises, you have now run the full Explore, Plan, Code, Commit loop from start to finish.

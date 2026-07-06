@@ -26,7 +26,7 @@ Treat every such marker as intentional. Notice it, understand why it is there, a
 
 - Claude Code installed and running, so that `claude` is available in your terminal.
 - Node.js version 18 or newer.
-- For the test suite, `ts-node` and `typescript` available on your machine. The `npm test` script runs the tests through `ts-node`. You can provide these with a local dev install or by running the tests through `npx`, as shown in the Running the Demos section.
+- For the test suite, nothing beyond Node.js. The `npm test` script runs the tests through `ts-node`, which is declared as a dev dependency and installed for you by `npm install`.
 
 ## 4. Installation
 
@@ -37,16 +37,10 @@ Treat every such marker as intentional. Notice it, understand why it is there, a
    cd claude-code-workflow-demo
    ```
 
-2. Install dependencies. The demo has no runtime dependencies, so this step mainly prepares the workspace:
+2. Install dependencies. This installs the dev tooling the test suite runs on, which is `ts-node` and `typescript`:
 
    ```bash
    npm install
-   ```
-
-3. If you plan to run the test suite and do not already have `ts-node` available, add the tooling the runner expects:
-
-   ```bash
-   npm install --save-dev ts-node typescript
    ```
 
 ## 5. Project Structure
@@ -56,9 +50,13 @@ claude-code-workflow-demo/
 ├── CLAUDE.md                 Project conventions Claude reads (TLS, credentials, style)
 ├── INSTRUCTIONS.md           The lesson walkthrough in Markdown
 ├── README.md                 This file
-├── package.json              Scripts for test and lint
+├── package.json              Scripts and the dev tooling the tests run on
+├── tsconfig.json             TypeScript settings used by ts-node
 ├── The Claude Code Workflow_ Explore, Plan, Code, Commit.docx   The source lesson document
 ├── .gitignore                Ignore rules for operating system and editor noise
+├── .claude/
+│   └── agents/
+│       └── code-reviewer.md  The read only reviewer subagent used in the Commit step
 ├── src/
 │   ├── api/
 │   │   └── snapshot.ts        Public route: validates host, pulls a frame, runs the pipeline
@@ -94,7 +92,7 @@ This is the main demo. It takes you through Explore, Plan, Code, and Commit.
 
 The test suite is the source of truth the Code step validates against.
 
-1. Make sure `ts-node` and `typescript` are available, as described in Prerequisites and Installation.
+1. Install dependencies with `npm install` if you have not already. This provides `ts-node` and `typescript`.
 2. Run the tests:
 
    ```bash
@@ -121,6 +119,6 @@ Each guide tells you what to do, what to observe, what to look for in the code, 
 ## 8. Additional Notes
 
 - **Conventions.** `CLAUDE.md` holds the project conventions Claude reads on every session: all camera and device endpoints must use TLS, credentials are never hardcoded and come from config, and the code style is two space indentation with named exports only. The exercises point these out so you can see how conventions shape both the implementation and the review.
-- **The review step.** The Commit step uses a read only code reviewer subagent for a fresh eyes pass before you commit. It runs in its own context, so it does not carry the bias the main agent picked up while writing the change.
+- **The review step.** The Commit step uses the read only `code-reviewer` subagent defined in `.claude/agents/code-reviewer.md`. It runs in its own context for a fresh eyes pass before you commit, so it does not carry the bias the main agent picked up while writing the change.
 - **Lesson source.** The lesson lives in two forms in this repository: `INSTRUCTIONS.md` for quick reading and the original `.docx` for the full workshop version. The exercises are derived from both.
 - **Scope.** This is a teaching demo, not production software. The camera integration and pipeline are deliberately minimal so the workflow stays in focus.

@@ -21,17 +21,13 @@ The feature lives in `src/pipeline/imagePipeline.ts`:
 
 ## How to run the tests
 
-Make sure `ts-node` and `typescript` are available, then run:
+Install dependencies with `npm install`, which provides `ts-node` and `typescript`, then run:
 
 ```bash
 npm test
 ```
 
-You can also run the suite without a local install:
-
-```bash
-npx ts-node -e "require('./tests/imagePipeline.test').run()"
-```
+On this branch the WebP case passes, so the run prints `all tests passed`.
 
 ## Note on the encoder
 

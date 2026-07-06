@@ -1,0 +1,9 @@
+{
+  "name": "demo-5-workflow",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "ts-node -e \"require('./tests/imagePipeline.test').run()\"",
+    "lint": "echo 'add your linter here'"
+  }
+}
